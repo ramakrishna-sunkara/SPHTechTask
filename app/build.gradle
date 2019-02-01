@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -12,22 +14,76 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://data.gov.sg/\"")
+
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    kapt {
+        generateStubs = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Test
+    testImplementation "junit:junit:${junit_version}"
+    testImplementation "org.mockito:mockito-core:${mockito_version}"
+
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:${espresso_core_version}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:${espresso_contrib_version}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    })
+
+    androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:${uiautomator_v18_version}"
+
+    //Google
+    implementation "com.android.support:design:$google_support_version"
+    implementation "com.android.support:appcompat-v7:$google_support_version"
+    implementation "com.android.support:recyclerview-v7:$google_support_version"
+    implementation "com.android.support.constraint:constraint-layout:$google_constraint_version"
+
+    annotationProcessor "com.android.databinding:compiler:$google_databinding_compiler_version"
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Dagger 2
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //Square
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$interceptor_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_converter_gson_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_adapter_rxjava_version"
+
+    //rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 }
