@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SPHTechTask</string>
+    <string name="clear" />
 </resources>
