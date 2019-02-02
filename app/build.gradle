@@ -40,6 +40,14 @@ android {
             testCoverageEnabled true
         }
     }
+
+    sourceSets {
+        main {
+            file('src/main/res-screen')
+                    .listFiles()
+                    .each { res.srcDirs += it.path }
+        }
+    }
 }
 
 dependencies {
