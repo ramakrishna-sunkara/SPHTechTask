@@ -2,7 +2,7 @@ package com.sphtech.mobileusage.ui
 
 import com.sphtech.mobileusage.base.BasePresenter
 import com.sphtech.mobileusage.base.BaseScheduler
-import com.sphtech.mobileusage.util.Constant
+import com.sphtech.mobileusage.util.AppUtil
 import javax.inject.Inject
 
 /**
@@ -30,7 +30,7 @@ constructor(val repository: HomeContract.Repository, scheduler: BaseScheduler) :
                         it.onLoading(false)
 
                         if (response != null)
-                            it.onMobileDataUsageResponse(Constant.convertMobileDataUsageToYearly(response))
+                            it.onMobileDataUsageResponse(AppUtil.convertMobileDataUsageToYearly(response))
                         else it.onError(null)
                     }, { error ->
                         it.onLoading(false)

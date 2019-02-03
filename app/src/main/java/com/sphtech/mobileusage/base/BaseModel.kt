@@ -24,5 +24,12 @@ open class BaseModel {
         fun isUsageDecreased(imageView: ImageView, isUsageDecreased: Boolean) {
             imageView.visibility = if (isUsageDecreased) View.VISIBLE else View.INVISIBLE
         }
+
+        @JvmStatic
+        @BindingAdapter("usageValue")
+        fun setUsageValue(textView: TextView, dataUsageYearly: DataUsageYearly) {
+            textView.text = java.lang.String.format("%s", dataUsageYearly.yearVolumeOfMobileData)
+        }
+
     }
 }

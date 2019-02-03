@@ -3,7 +3,6 @@ package com.sphtech.mobileusage.ui
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.Toast
 import com.sphtech.mobileusage.R
 import com.sphtech.mobileusage.SPHTechApplication
 import com.sphtech.mobileusage.base.BaseActivity
@@ -11,6 +10,7 @@ import com.sphtech.mobileusage.databinding.ActivityHomeBinding
 import com.sphtech.mobileusage.di.scope.ActivityScoped
 import com.sphtech.mobileusage.model.DataUsageYearly
 import com.sphtech.mobileusage.screen.home.di.HomeModule
+import com.sphtech.mobileusage.util.AppUtil
 import javax.inject.Inject
 
 /**
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @ActivityScoped
 class HomeActivity : BaseActivity(), HomeContract.View, HomeContract.OnListAdapterItemClick {
     override fun onUserDecreasedImageClick(dataUsageYearly: DataUsageYearly) {
-        Toast.makeText(this, dataUsageYearly.year, Toast.LENGTH_SHORT).show()
+        AppUtil.showDialog(this@HomeActivity, dataUsageYearly.year, getString(R.string.msg_usage_decreased), getString(R.string.ok))
     }
 
     private var mBinding: ActivityHomeBinding? = null
@@ -46,13 +46,14 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeContract.OnListAdapt
     override fun onInitView() {
         mBinding = this.bindView(R.layout.activity_home) as ActivityHomeBinding
 
-        this.toolbar(mBinding?.includeToolbar?.toolbar).title(R.string.app_name).builder()
+        this.toolbar(mBinding?.includeToolbar?.toolbar).title(R.string.app_name).displayHome(false).builder()
 
         mBinding?.recyclerView?.layoutManager = LinearLayoutManager(this)
 
         mBinding?.swipeContainer?.setOnRefreshListener(onRefresh)
         mBinding?.swipeContainer?.setColorSchemeResources(R.color.accent, R.color.accent,
                 R.color.accent, R.color.accent)
+
     }
 
     private val onRefresh = SwipeRefreshLayout.OnRefreshListener { fetchMobileDataUsage() }

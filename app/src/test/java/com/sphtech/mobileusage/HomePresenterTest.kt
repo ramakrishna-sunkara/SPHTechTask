@@ -4,7 +4,7 @@ import com.sphtech.mobileusage.data.scheduler.TestSchedulerProvider
 import com.sphtech.mobileusage.model.MobileDataUsageResponse
 import com.sphtech.mobileusage.ui.HomeContract
 import com.sphtech.mobileusage.ui.HomePresenter
-import com.sphtech.mobileusage.util.Constant
+import com.sphtech.mobileusage.util.AppUtil
 import io.reactivex.Single
 import io.reactivex.schedulers.TestScheduler
 import org.junit.After
@@ -87,7 +87,7 @@ class HomePresenterTest {
 
             mTestScheduler.triggerActions()
 
-            verify(it, times(1)).onMobileDataUsageResponse(Constant.convertMobileDataUsageToYearly(mMobileDataUsageResponse))
+            verify(it, times(1)).onMobileDataUsageResponse(AppUtil.convertMobileDataUsageToYearly(mMobileDataUsageResponse))
             verify(it, never()).onError(null)
         }
     }
@@ -104,7 +104,7 @@ class HomePresenterTest {
 
             verify(it).onError(throwable)
             verify(it, times(1)).onLoading(false)
-            verify(it, never()).onMobileDataUsageResponse(Constant.convertMobileDataUsageToYearly(mMobileDataUsageResponse))
+            verify(it, never()).onMobileDataUsageResponse(AppUtil.convertMobileDataUsageToYearly(mMobileDataUsageResponse))
         }
     }
 
