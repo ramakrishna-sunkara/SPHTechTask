@@ -10,35 +10,66 @@
             type="com.sphtech.mobileusage.model.DataUsageYearly" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayout"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp"
+        card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/txt_year"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:maxLines="1"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:usageYear="@{dataUsageYearly}"
-            tools:text="Ramakrishna" />
+            android:padding="@dimen/common_padding">
 
-        <ImageView
-            android:id="@+id/img_is_decreased"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/clear"
-            app:isUsageDecreased="@{dataUsageYearly.isDecreased}"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_year"
-            app:layout_constraintStart_toEndOf="@+id/txt_year"
-            app:layout_constraintTop_toTopOf="@+id/txt_year"
-            app:srcCompat="@drawable/ic_trending_down_black_24dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/img_is_decreased"
+                android:orientation="vertical">
 
-    </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/txt_usage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Usage"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:usageValue="@{dataUsageYearly}" />
+
+                <TextView
+                    android:id="@+id/txt_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_padding_m"
+                    android:maxLines="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:usageYear="@{dataUsageYearly}"
+                    tools:text="Year" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_is_decreased"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                app:isUsageDecreased="@{dataUsageYearly.isDecreased}"
+                app:srcCompat="@drawable/ic_trending_down_black_24dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
 </layout>

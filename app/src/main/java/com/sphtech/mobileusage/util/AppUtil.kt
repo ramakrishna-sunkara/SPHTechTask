@@ -1,5 +1,7 @@
 package com.sphtech.mobileusage.util
 
+import android.content.Context
+import android.support.v7.app.AlertDialog
 import com.sphtech.mobileusage.model.DataUsageYearly
 import com.sphtech.mobileusage.model.MobileDataUsageResponse
 
@@ -7,10 +9,7 @@ import com.sphtech.mobileusage.model.MobileDataUsageResponse
  * Created by Ramakrishna Sunkara on 02/02/19.
  */
 
-object Constant {
-
-    val TAG = "4Adviser"
-
+object AppUtil {
     fun convertMobileDataUsageToYearly(response: MobileDataUsageResponse): List<DataUsageYearly> {
         var listDataUsageYearly: MutableList<DataUsageYearly> = mutableListOf()
         try {
@@ -36,4 +35,15 @@ object Constant {
 
         return listDataUsageYearly
     }
+
+    fun showDialog(context: Context, title: String, message: String, positiveText: String) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton(positiveText) { _, _ ->
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
 }

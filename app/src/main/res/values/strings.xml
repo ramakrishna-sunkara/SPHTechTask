@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">SPHTechTask</string>
     <string name="clear" />
+    <string name="ok">Ok</string>
+    <string name="msg_usage_decreased">A quarter in this year demonstrates a decrease in volume data</string>
 </resources>
